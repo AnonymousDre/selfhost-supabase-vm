@@ -1,6 +1,6 @@
 import Register from "./components/Register";
 import Login from "./components/Login";
-import Tasks from "./components/Tasks";
+import Students from "./components/Students";
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <hr />
       <Login />
       <hr />
-      <Tasks />
+      <h1>CRUD Demo</h1>
+      <Students />
     </div>
   );
 }
