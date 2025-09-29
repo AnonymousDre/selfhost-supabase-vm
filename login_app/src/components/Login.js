@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../services/api";
+import supabase from "../services/supabaseClient";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -11,13 +11,12 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await api.post("/login", form);
-      setMessage(res.data.message);
-      console.log("Logged in user:", res.data.user);
-    } catch (err) {
-      setMessage(err.response?.data?.error || "Login failed");
-    }
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: form.email,
+      password: form.password,
+    });
+    if (error) setMessage(error.message);
+    else setMessage(`Welcome ${data.user.email}`);
   };
 
   return (
